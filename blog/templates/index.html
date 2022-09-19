@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="#">
+    <!--
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  -->
+    <title>My First Blog</title>
+
+    <!-- Bootstrap core CSS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+            integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+            integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"></script>
+    <!--text editor-->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    <!-- Page Content -->
+    {% block head %}{% endblock %}
+</head>
+
+<div class="container">
+
+    <body>
+
+        <div>
+        <p>Life is short, and the world is wide...</p>
+        <div style="text-align: left"><img
+            src="{{url_for('static',filename='footer.png')}}", width="1075"
+    </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light static-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">SERIOUS TRAVELER blog</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="https://filmweb.com/"> Filmweb
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    {% if session.logged_in %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/post/">New Post</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/drafts/">Drafts</a>
+                        </li>
+                    {% else %}
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact/">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        {% if session.logged_in %}
+                            <form class="form-inline my-2 my-lg-0" action="{{ url_for('logout') }}" method="POST">
+                                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Logout</button>
+                            </form>
+                        {% else %}
+                            <a href="{{ url_for('login') }}" class="btn btn-secondary my-2 my-lg-0">Login</a>
+                        {% endif %}
+                    </li>
+            </div>
+
+            </ul>
+        </div>
+
+
+</div>
+</nav>
+<!-- Page Content -->
+<div class="container">
+    {% block content %}
+
+    {% endblock %}
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Hello Bootstrap 4',
+            tabsize: 2,
+            height: 100,
+            height: 300,                 // set editor height
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true                  // set focus to editable area after initializing summernote
+        });
+    </script>
+
+    </body>
+
+</div>
+
+</html>

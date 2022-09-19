@@ -1,0 +1,43 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+    <!--flash-->
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form action="/contact/" method="POST">
+        <h10 style="text-align: center; font-size: 20px;">Get in Touch</h10>
+        <br><br>
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com">
+        </div>
+        <div class="form-row">
+            <div class="col">
+                <label for="name">Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+            </div>
+            <div class="col">
+                <label for="surname">Surname</label>
+                <input type="text" class="form-control" id="surname" name="surname" placeholder="Surname">
+            </div>
+        </div>
+        <div>
+            <label for="title">Message Title</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+        </div>
+        <div class="form-group">
+            <label for="content">Message Content</label>
+            <textarea class="form-control" id="email_content" name="email_content" rows="8"></textarea>
+        </div>
+        <button class="btn btn-secondary btn-lg btn-block" type="submit">Send Email</button>
+    </form>
+{% endblock %}

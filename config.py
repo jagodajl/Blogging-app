@@ -11,3 +11,4 @@ class Config(object):
     ADMIN_USERNAME = "admin"
     # ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "")
     ADMIN_PASSWORD = "admin"
+    SECRET_KEY = os.environ.get("SECRET_KEY") or "remember-to-add-secret-key"

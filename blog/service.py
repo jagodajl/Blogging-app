@@ -1,4 +1,4 @@
-from flask import flash
+from flask import flash, session
 
 from blog import db
 from blog.func import new_entry
@@ -27,3 +27,10 @@ def update_entry(entry, form):
         form.populate_obj(entry)
         db.session.commit()
         flash("Your Post has been updated!", "info")
+
+
+def login(form):
+    if form.validate_on_submit():
+        session["logged_in"] = True
+        session.permanent = True  # Use cookie to store session.
+        flash("You are now logged in.", "success")

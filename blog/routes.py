@@ -1,38 +1,32 @@
-from flask import request, render_template, redirect, flash, session
-from blog import app
-from blog.models import Entry, db
-from blog.forms import EntryForm, LoginForm, ContactForm
-from blog.decorators import login_required
-from blog.func import new_entry
 import os
+
+from flask import request, render_template, redirect, flash, session
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
+
+from blog import app, service
+from blog.decorators import login_required
+from blog.forms import EntryForm, LoginForm, ContactForm
+from blog.models import Entry, db
 
 
 @app.route("/")
 def index():
-    all_posts = Entry.query.filter_by(is_published=True).order_by(Entry.pub_date.desc())
+    all_posts = service.filter_entries_by_date(is_published=True)
     return render_template("homepage.html", all_posts=all_posts)
 
 
-@app.route("/post/", methods=["GET", "POST"])
+@app.route("/post/", methods=["GET"])
+@login_required
+def get_new_post_form():
+    return render_template("entry_form.html", form=_get_entry_form_object(), errors=None)
+
+
+@app.route("/post/", methods=["POST"])
 @login_required
 def create_entry():
-    form = EntryForm()
-    errors = None
-    if request.method == "POST":
-        is_published = form.is_published.data
-        if is_published == True:
-            new_entry(form)
-            flash("Your Post has been published!", "success")
-            return redirect("/")
-        elif is_published == False:
-            new_entry(form)
-            flash("Post created and saved in Drafts", "info")
-            return redirect("/")
-        else:
-            errors = form.errors
-    return render_template("entry_form.html", form=form, errors=errors)
+    service.publish_entry(_get_entry_form_object())
+    return redirect("/")
 
 
 @app.route("/edit-post/<int:entry_id>", methods=["GET", "POST"])
@@ -129,3 +123,7 @@ def contact():
 @app.route("/about")
 def about():
     return render_template("about.html")
+
+
+def _get_entry_form_object():
+    return EntryForm()

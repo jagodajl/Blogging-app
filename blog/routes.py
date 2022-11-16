@@ -19,7 +19,8 @@ def index():
 @app.route("/post/", methods=["GET"])
 @login_required
 def get_new_post_form():
-    return render_template("entry_form.html", form=_get_entry_form_object(), errors=None)
+    form = _get_entry_form_object()
+    return render_template("entry_form.html", form=form, errors=None)
 
 
 @app.route("/post/", methods=["POST"])
@@ -29,21 +30,21 @@ def create_entry():
     return redirect("/")
 
 
-@app.route("/edit-post/<int:entry_id>", methods=["GET", "POST"])
+@app.route("/edit-post/<int:entry_id>", methods=["GET"])
+@login_required
+def get_edit_entry_form(entry_id):
+    entry_db = service.get_entry_by_id(entry_id)
+    form_for_editing = EntryForm(obj=entry_db)
+    return render_template("entry_form.html", form=form_for_editing, errors=None)
+
+
+@app.route("/edit-post/<int:entry_id>", methods=["POST"])
 @login_required
 def edit_entry(entry_id):
-    entry = Entry.query.filter_by(id=entry_id).first_or_404()
-    form = EntryForm(obj=entry)
-    errors = None
-    if request.method == "POST":
-        if form.validate_on_submit():
-            form.populate_obj(entry)
-            db.session.commit()
-            flash("Your Post has been updated!", "info")
-            return redirect("/")
-        else:
-            errors = form.errors
-    return render_template("entry_form.html", form=form, errors=errors)
+    entry_db: object = service.get_entry_by_id(entry_id)
+    form_for_editing = EntryForm(obj=entry_db)
+    service.update_entry(entry_db, form_for_editing)
+    return redirect("/")
 
 
 @app.route("/login/", methods=["GET", "POST"])

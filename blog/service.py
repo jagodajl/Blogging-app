@@ -34,3 +34,18 @@ def login(form):
         session["logged_in"] = True
         session.permanent = True  # Use cookie to store session.
         flash("You are now logged in.", "success")
+
+
+def logout():
+    session.clear()
+    flash("You are now logged out.", "success")
+
+
+def delete_draft(entry):
+    db.session.delete(entry)
+    db.session.commit()
+    flash("Post Deleted.", "success")
+
+
+def send_email():
+    flash("Your email has been sent!", "success")

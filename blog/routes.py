@@ -12,21 +12,21 @@ def index():
 
 
 @app.route("/post/", methods=["GET"])
-@login_required
+# @login_required
 def get_new_post_form():
     form = __get_entry_form_object()
     return render_template("entry_form.html", form=form, errors=None)
 
 
 @app.route("/post/", methods=["POST"])
-@login_required
+# @login_required
 def create_entry():
     service.publish_entry(__get_entry_form_object())
     return redirect("/")
 
 
 @app.route("/edit-post/<int:entry_id>", methods=["GET"])
-@login_required
+# @login_required
 def get_edit_entry_form(entry_id):
     entry_db = service.get_entry_by_id(entry_id)
     form_for_editing = EntryForm(obj=entry_db)
@@ -34,7 +34,7 @@ def get_edit_entry_form(entry_id):
 
 
 @app.route("/edit-post/<int:entry_id>", methods=["POST"])
-@login_required
+# @login_required
 def edit_entry(entry_id):
     entry_db: object = service.get_entry_by_id(entry_id)
     form_for_editing = EntryForm(obj=entry_db)
@@ -85,7 +85,7 @@ def contact():
     return redirect("/contact/")
 
 
-@app.route("/about")
+@app.route("/about/")
 def about():
     return render_template("about.html")
 

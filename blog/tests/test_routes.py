@@ -53,19 +53,21 @@ def test_logout(app_client):
 
 
 def test_open_new_post_form(app_client):
-    with app_client:
+    with app_client as ac:
+        with ac.session_transaction() as sess:
+            sess["logged_in"] = True
         expected_html_cut_off = "Add new post"
         response_get_post_form = app_client.get("/post/")
         assert response_get_post_form.status_code == 200
         html = str(response_get_post_form.get_data())
         count = html.count(expected_html_cut_off)
         assert count == 1
-        # TODO:
-        #   mocking @login_required
 
 
 def test_create_new_post(app_client):
-    with app_client:
+    with app_client as ac:
+        with ac.session_transaction() as sess:
+            sess["logged_in"] = True
         form_data = {
             'title': 'Title',
             'body': 'Content',
@@ -73,12 +75,12 @@ def test_create_new_post(app_client):
         }
         response_create_post = app_client.post("/post/", data=form_data, follow_redirects=True)
         assert response_create_post.status_code == 200
-        # TODO:
-        #   mocking @login_required
 
 
 def test_open_edit_post_form(app_client, monkeypatch):
-    with app_client:
+    with app_client as ac:
+        with ac.session_transaction() as sess:
+            sess["logged_in"] = True
         existing_edit_id = 7
         expected_html_cut_off = "Add new post"
         expected_img_utl_for_edit = "https://www.miavolta.com/wp-content/uploads/2022/02/Pula-6.jpg"
@@ -91,19 +93,17 @@ def test_open_edit_post_form(app_client, monkeypatch):
         count_img_url = html.count(expected_img_utl_for_edit)
         assert count == 1
         assert count_img_url == 1
-        # TODO:
-        #   mocking @login_required
 
 
 def test_edit_post(app_client, monkeypatch):
-    with app_client:
+    with app_client as ac:
+        with ac.session_transaction() as sess:
+            sess["logged_in"] = True
         edit_id = 3
         # mocked_post_entry = Entry(id=1, title="Title", body="Body", post_img="dupa", pub_date=today_date)
         # monkeypatch.setattr(service, 'get_entry_by_id', lambda mock: mocked_post_entry)
         response_get_form_edit_post = app_client.post(f"/edit-post/{edit_id}", follow_redirects=True)
         assert response_get_form_edit_post.status_code == 200
-        # TODO:
-        #   mocking @login_required
 
 
 def test_open_show_drafts_form(app_client):

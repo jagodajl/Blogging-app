@@ -21,3 +21,4 @@ itsdangerous==2.0.1
 werkzeug==2.0.3
 pytest~=7.2.0
 alembic~=1.8.1
+selenium~=4.6.0

@@ -1,12 +1,13 @@
 A blog is a full-featured blog platform. It uses Flask, SQLAlchemy, as well as Bootstrap templates and has the following features:
-user and eye-friendly interface
-storing entries in the form of a database
-viewing entries feature
-adding new entries feature
-deleting entries feature
-logging option
-drafts storage option
-Project is covered with: unit tests (80% files, 97% lines covered) and integration tests (Selenium, 90% files, 98% lines covered). 
+- user and eye-friendly interface
+- storing entries in the form of a database
+- viewing entries feature
+- adding new entries feature
+- deleting entries feature
+- logging option
+- drafts storage option
+
+- Project is covered with: unit tests (80% files, 97% lines covered) and integration tests (Selenium, 90% files, 98% lines covered). 
 
 How to run blog:
 - install all the packages listed in the requirements.txt file (they are necessary for the proper operation of the program)

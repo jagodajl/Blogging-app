@@ -1,3 +1,19 @@
+A blog is a full-featured blog platform. It uses Flask, SQLAlchemy, as well as Bootstrap templates and has the following features:
+user and eye-friendly interface
+storing entries in the form of a database
+viewing entries feature
+adding new entries feature
+deleting entries feature
+logging option
+drafts storage option
+Project is covered with: unit tests (80% files, 97% lines covered) and integration tests (Selenium, 90% files, 98% lines covered). 
+
+
+How to run blog:
+- please type "flask run" into terminal
+- next click the link that comes up (http://127.0.0.1:5000/) 
+
+
 How to run Selenium tests:
 - please run the app by typing 'flask run' into a terminal 
 - if you don't have chrome web browser (Version 107) and m1 processor please download web driver appropriate for your PC from:

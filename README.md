@@ -8,11 +8,10 @@ logging option
 drafts storage option
 Project is covered with: unit tests (80% files, 97% lines covered) and integration tests (Selenium, 90% files, 98% lines covered). 
 
-
 How to run blog:
+- install all the packages listed in the requirements.txt file (they are necessary for the proper operation of the program)
 - please type "flask run" into terminal
-- next click the link that comes up (http://127.0.0.1:5000/) 
-
+- next click the link that comes up (http://127.0.0.1:5000/)
 
 How to run Selenium tests:
 - please run the app by typing 'flask run' into a terminal 

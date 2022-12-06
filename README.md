@@ -1,4 +1,4 @@
-A blog is a full-featured blog platform. It uses Flask, SQLAlchemy, as well as Bootstrap templates and has the following features:
+A blog is a full-featured blog platform. It uses Flask, SQLAlchemy, as well as Bootstrap templates. It has the following features:
 - user and eye-friendly interface
 - storing entries in the form of a database
 - viewing entries feature
